@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Example QuickGlass</string>
+    <string name="glass_voice_trigger">quick glass example</string>
+</resources>
