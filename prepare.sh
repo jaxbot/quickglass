@@ -4,6 +4,7 @@
 TMPDIR=$(mktemp -d)
 
 mkdir $TMPDIR/input
+mkdir $TMPDIR/input/res
 
 # Copy over the latest version of QuickGlass's compiled core
 cp -R -f app/quickglass/build/assets $TMPDIR/input
