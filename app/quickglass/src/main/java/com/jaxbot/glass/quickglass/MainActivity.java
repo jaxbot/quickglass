@@ -11,6 +11,10 @@ import android.content.BroadcastReceiver;
 import android.content.res.Resources;
 import android.speech.tts.TextToSpeech;
 
+import java.io.InputStream;
+
+import android.webkit.WebView;
+
 import com.google.android.glass.app.Card;
 
 public class MainActivity extends Activity {
@@ -34,10 +38,30 @@ public class MainActivity extends Activity {
 		super.onStart();
 		
 		// Display it.
-		Card card = new Card(this);
+		/*Card card = new Card(this);
 		card.setText(getResources().getText(R.string.app_name).toString());
 		View cardView = card.toView();
 		setContentView(cardView);
+		*/
+
+		WebView webview = new WebView(this);
+		setContentView(webview);
+
+		webview.getSettings().setJavaScriptEnabled(true);
+
+		//webview.loadUrl("http://google.com/");
+		try {
+			InputStream input = getResources().openRawResource(R.raw.card);
+			byte[] buffer = new byte[input.available()];
+			input.read(buffer);
+			String data = new String(buffer);
+
+			webview.loadData(data, "text/html", null);
+		} catch (Exception e) {
+			webview.loadData("<b>" + e.toString() + "</b>", "text/html", null);
+			e.printStackTrace();
+		}
+
 	}
 	
 	@Override
