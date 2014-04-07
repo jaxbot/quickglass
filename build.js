@@ -1,26 +1,8 @@
-var spawn = require('child_process').spawn,
-	fs = require('fs'),
-	prepare = spawn('./prepare.sh');
+var builder = require('./builder');
 
-prepare.stdout.on('data', function(data) {
-	var tmpdir = data.toString().replace(/\n/,'');
-
-	// manipulate the temporary files
-	var strings = tmpdir + "/input/res/values/values.xml";
-	var stringxml = fs.readFileSync(strings).toString();
-
-	stringxml = stringxml.replace("{{APPNAME}}", "Some name");
-	stringxml = stringxml.replace("{{VOICETRIGGER}}", "some glass example");
-
-	fs.writeFileSync(strings, stringxml);
-	
-	var build = spawn('./build.sh', [tmpdir]);
-
-	build.stdout.on('data', function(data) {
-		console.log(data.toString());
-	});
-	build.stderr.on('data', function(data) {
-		console.log(data.toString());
-	});
-});
+if (process.argv.length < 4) {
+	console.log("usage: build <appName> <voiceTrigger> <htmlData>");
+} else {
+	builder(process.argv[1], process.argv[2], process.argv[3]);
+}
 
