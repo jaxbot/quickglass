@@ -24,7 +24,9 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
 		webview = new WebView(this);
 
 		// Prevent ugly white flash on load
