@@ -19,11 +19,14 @@ import com.google.android.glass.app.Card;
 
 public class MainActivity extends Activity {
 	private TextToSpeech tts;
+	WebView webview;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+		webview = new WebView(this);
+
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
