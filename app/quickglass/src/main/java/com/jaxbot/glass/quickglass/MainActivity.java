@@ -27,6 +27,11 @@ public class MainActivity extends Activity {
         
 		webview = new WebView(this);
 
+		// Prevent ugly white flash on load
+		// see: http://stackoverflow.com/questions/9476151/webview-flashing-with-white-background-if-hardware-acceleration-is-enabled-an
+		webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		webview.setBackgroundColor(Color.argb(1, 0, 0, 0));
+        
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
