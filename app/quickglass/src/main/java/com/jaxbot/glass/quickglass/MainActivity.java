@@ -2,6 +2,7 @@ package com.jaxbot.glass.quickglass;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.WindowManager;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +12,10 @@ import android.content.res.Resources;
 
 import java.io.InputStream;
 
-import android.view.WindowManager;
-import android.webkit.WebView;
 import android.graphics.Color;
+
+import android.webkit.WebView;
+
 import com.google.android.glass.app.Card;
 
 public class MainActivity extends Activity {
@@ -39,6 +41,7 @@ public class MainActivity extends Activity {
 
 		setContentView(webview);
 		webview.getSettings().setJavaScriptEnabled(true);
+		webview.addJavascriptInterface(new Javascript(this), "Glass");
 
 		try {
 			InputStream input = getResources().openRawResource(R.raw.card);
@@ -60,8 +63,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	public void onDestroy() {
-		tts.shutdown();
-
 		super.onDestroy();
 	}
 }
