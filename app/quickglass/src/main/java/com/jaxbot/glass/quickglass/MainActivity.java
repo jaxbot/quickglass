@@ -9,8 +9,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.content.res.Resources;
+import android.speech.RecognizerIntent;
+import android.util.Log;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import android.graphics.Color;
 
@@ -20,6 +23,7 @@ import com.google.android.glass.app.Card;
 
 public class MainActivity extends Activity {
 	WebView webview;
+	String voiceData = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,11 @@ public class MainActivity extends Activity {
 		webview.getSettings().setJavaScriptEnabled(true);
 		webview.addJavascriptInterface(new Javascript(this), "Glass");
 
+		showPage();
+	}
+
+
+	void showPage() {
 		try {
 			InputStream input = getResources().openRawResource(R.raw.card);
 			byte[] buffer = new byte[input.available()];
@@ -50,10 +59,14 @@ public class MainActivity extends Activity {
 			String data = new String(buffer);
 
 			webview.loadData(data, "text/html", null);
-		} catch (Exception e) {
-			webview.loadData("Error: <b>" + e.toString() + "</b>", "text/html", null);
+		} catch (Exception e) { webview.loadData("Error: <b>" + e.toString() + "</b>", "text/html", null);
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
 	}
 
 	@Override
