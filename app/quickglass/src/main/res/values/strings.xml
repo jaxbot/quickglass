@@ -2,4 +2,5 @@
 <resources>
 	<string name="app_name">{{APPNAME}}</string>
 	<string name="glass_voice_trigger">{{VOICETRIGGER}}</string>
+	<string name="voiceprompt">{{VOICEPROMPT}}</string>
 </resources>

@@ -1,4 +1,4 @@
-module.exports = function(appName, voiceTrigger, htmlData) {
+module.exports = function(appName, voiceTrigger, htmlData, voicePrompt) {
 	var spawn = require('child_process').spawn,
 		fs = require('fs'),
 		prepare = spawn('./prepare.sh');
@@ -12,6 +12,15 @@ module.exports = function(appName, voiceTrigger, htmlData) {
 
 		stringxml = stringxml.replace("{{APPNAME}}", appName);
 		stringxml = stringxml.replace("{{VOICETRIGGER}}", voiceTrigger);
+
+		if (voicePrompt) {
+			stringxml = stringxml.replace("{{VOICEPROMPT}}", voicePrompt);
+
+			var triggerFile = tmpdir + "/input/res/xml/voice_trigger.xml";
+			var triggerData = fs.readFileSync(triggerFile).toString().replace("<!-- input", "<input").replace("/ -->", "/>");
+			fs.writeFileSync(triggerFile, triggerData);
+			console.log(triggerData);
+		}
 
 		fs.writeFileSync(strings, stringxml);
 

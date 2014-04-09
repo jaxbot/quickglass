@@ -52,14 +52,27 @@ public class MainActivity extends Activity {
 
 
 	void showPage() {
+		
+		if (getIntent().getExtras() != null) {
+			ArrayList<String> voiceResults = getIntent().getExtras()
+				.getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
+
+			voiceData = voiceResults.get(0);
+		}
+
 		try {
 			InputStream input = getResources().openRawResource(R.raw.card);
 			byte[] buffer = new byte[input.available()];
 			input.read(buffer);
 			String data = new String(buffer);
 
+			if (voiceData != "") {
+				data += "<script>if (voicePromptCallback) voicePromptCallback(\"" + voiceData + "\");</script>";
+			}
+
 			webview.loadData(data, "text/html", null);
-		} catch (Exception e) { webview.loadData("Error: <b>" + e.toString() + "</b>", "text/html", null);
+		} catch (Exception e) {
+			webview.loadData("Error: <b>" + e.toString() + "</b>", "text/html", null);
 			e.printStackTrace();
 		}
 	}
