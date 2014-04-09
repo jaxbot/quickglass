@@ -23,7 +23,6 @@ import com.google.android.glass.app.Card;
 
 public class MainActivity extends Activity {
 	WebView webview;
-	String voiceData = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +36,6 @@ public class MainActivity extends Activity {
 		// see: http://stackoverflow.com/questions/9476151/webview-flashing-with-white-background-if-hardware-acceleration-is-enabled-an
 		webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		webview.setBackgroundColor(Color.argb(1, 0, 0, 0));
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
 
 		setContentView(webview);
 		webview.getSettings().setJavaScriptEnabled(true);
@@ -50,24 +44,28 @@ public class MainActivity extends Activity {
 		showPage();
 	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+	}
+
 
 	void showPage() {
-		
-		if (getIntent().getExtras() != null) {
-			ArrayList<String> voiceResults = getIntent().getExtras()
-				.getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
-
-			voiceData = voiceResults.get(0);
-		}
-
 		try {
 			InputStream input = getResources().openRawResource(R.raw.card);
 			byte[] buffer = new byte[input.available()];
 			input.read(buffer);
 			String data = new String(buffer);
 
-			if (voiceData != "") {
-				data += "<script>if (voicePromptCallback) voicePromptCallback(\"" + voiceData + "\");</script>";
+			if (getIntent().getExtras() != null) {
+				ArrayList<String> voiceResults = getIntent().getExtras()
+					.getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
+
+				if (voiceResults != null) {
+					String voiceData = voiceResults.get(0);
+					if (voiceData != null && voiceData != "")
+						data += "<script>if (voicePromptCallback) voicePromptCallback(\"" + voiceData + "\");</script>";
+				}
 			}
 
 			webview.loadData(data, "text/html", null);
