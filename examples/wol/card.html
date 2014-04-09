@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+<style>
+	body {
+		background: #000;
+		color: #fff;
+		font-size: 30px;
+		font-weight: 100;
+		font-family: 'Roboto';
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+<p>
+	Connecting...
+</p>
+<script>
+Glass.say("One moment please.");
+
+// defer this so we see the "Connecting..." screen
+setTimeout(function() {
+	location.href='http://jaxbot.me/wol.php';
+},100);
+</script>
+</body>
+</html>
+
