@@ -1,4 +1,4 @@
-module.exports = function(appName, voiceTrigger, htmlData, voicePrompt) {
+module.exports = function(config, htmlData) {
 	var spawn = require('child_process').spawn,
 		fs = require('fs'),
 		prepare = spawn('./prepare.sh');
@@ -10,11 +10,11 @@ module.exports = function(appName, voiceTrigger, htmlData, voicePrompt) {
 		var strings = tmpdir + "/input/res/values/values.xml";
 		var stringxml = fs.readFileSync(strings).toString();
 
-		stringxml = stringxml.replace("{{APPNAME}}", appName);
-		stringxml = stringxml.replace("{{VOICETRIGGER}}", voiceTrigger);
+		stringxml = stringxml.replace("{{APPNAME}}", config.appName);
+		stringxml = stringxml.replace("{{VOICETRIGGER}}", config.voiceTrigger);
 
-		if (voicePrompt) {
-			stringxml = stringxml.replace("{{VOICEPROMPT}}", voicePrompt);
+		if (config.voicePrompt) {
+			stringxml = stringxml.replace("{{VOICEPROMPT}}", config.voicePrompt);
 
 			var triggerFile = tmpdir + "/input/res/xml/voice_trigger.xml";
 			var triggerData = fs.readFileSync(triggerFile).toString().replace("<!-- input", "<input").replace("/ -->", "/>");
@@ -25,6 +25,8 @@ module.exports = function(appName, voiceTrigger, htmlData, voicePrompt) {
 		fs.writeFileSync(strings, stringxml);
 
 		fs.writeFileSync(tmpdir + "/input/res/raw/card.html", htmlData);
+
+		fs.writeFileSync(tmpdir + "/input/AndroidManifest.xml", fs.readFileSync(tmpdir + "/input/AndroidManifest.xml").toString().replace(".quickglass", "." + config.appID));
 		
 		var build = spawn('./build.sh', [tmpdir]);
 

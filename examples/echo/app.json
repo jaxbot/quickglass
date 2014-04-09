@@ -1,0 +1,6 @@
+{
+	"appName": "Echo",
+	"appID": "qg_ex_echo",
+	"voiceTrigger": "Echo",
+	"voicePrompt": "A phrase for me to echo"
+}

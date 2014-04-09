@@ -1,8 +1,9 @@
 var builder = require('./builder');
+var fs = require('fs');
 
-if (process.argv.length < 4) {
-	console.log("usage: build <appName> <voiceTrigger> <htmlData>");
+if (process.argv.length < 2) {
+	console.log("usage: build <configurationdir>");
 } else {
-	builder(process.argv[1], process.argv[2], process.argv[3]);
+	builder(require('./' + process.argv[2] + '/app.json'), fs.readFileSync(process.argv[2] + '/card.html'));
 }
 
