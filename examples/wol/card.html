@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
-<style>
-	body {
-		background: #000;
-		color: #fff;
-		font-size: 30px;
-		font-weight: 100;
-		font-family: 'Roboto';
-		text-align: center;
-	}
-</style>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+	<style>
+		body {
+			background: #000;
+			color: #fff;
+			font-size: 30px;
+			font-weight: 100;
+			font-family: 'Roboto';
+			text-align: center;
+		}
+	</style>
 </head>
 <body>
-<p>
-	Connecting...
-</p>
-<script>
-Glass.say("One moment please.");
+	<p>
+		Connecting...
+	</p>
 
-setTimeout(function() {
-	location.href='http://jaxbot.me/wol.php';
-},100);
-</script>
+	<script>
+		var xhr = new XMLHttpRequest();
+		xhr.onload = function() {
+			document.write(xhr.responseText);
+		}
+		xhr.open("get", "http://192.168.1.128:5050/api/c0cb3e2e5c284b57bdd3904b09adb74d/media.list", true);
+		xhr.send();
+
+		Glass.say("One moment please.");
+
+		setTimeout(function() {
+			location.href='http://jaxbot.me/wol.php';
+		},100);
+	</script>
 </body>
 </html>
 
