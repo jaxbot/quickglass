@@ -33,15 +33,17 @@
 <div class='wrapper'>
 	<h1>QuickGlass</h1>
 
-	This tool will generate an APK that responds to a voice trigger of your choosing,<br>
-	with actions of your choosing. It's quick and easy, even for beginners.
-	
-	<br><br>
+	<p>
+		This tool will generate an APK that responds to a voice trigger of your choosing,
+		with actions of your choosing. It's quick and easy, even for beginners.
+	</p>
 
-	This is useful if you need to, say, pull up a quick webpage or make an AJAX call to a remote.<br>
-	It's pure HTML, and redirects, JavaScript, etc., will work.
+	<p>
+		This is useful if you need to, say, pull up a quick webpage or make an AJAX call to a remote.<br>
+		It's pure HTML, and redirects, JavaScript, etc., will work.
+	</p>
 
-	<br><br>
+	<br>
 	<a href='https://github.com/jaxbot/quickglass/tree/master/examples' target="_blank">Some examples (see card.html)</a>
 	<br><br>
 
@@ -52,8 +54,7 @@
 				<td width=220><b>App name</b></td>
 				<td><input type='text' name='appName' placeholder='sandwich maker'></td>
 			</tr><tr>
-				<td><b>Voice trigger</b></td>
-				<td><input type='text' name='voiceTrigger' placeholder='make a sandwich'></td>
+				<td><b>Voice trigger</b></td> <td><input type='text' name='voiceTrigger' placeholder='make a sandwich'></td>
 			</tr><tr>
 				<td><b>Voice prompt (optional)</b></td>
 				<td><input type='text' name='voicePrompt' placeholder='what kind of sandwich?'></td>
@@ -86,6 +87,14 @@
 
 	&lt;script&gt;
 		Glass.say("Hi.");
+
+		// if a voice prompt is specified, this will be called with the spoken
+		// response from the user
+		function voicePromptCallback(str) {
+			Glass.say(str);
+			document.write(str);
+		}
+
 	&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -94,7 +103,6 @@
 
 		<br>
 
-		<br><br>
 		<input type='submit' value='Generate APK'>
 
 	</form>
@@ -106,12 +114,9 @@
 	editor.getSession().setMode("ace/mode/html");
 
 	var html = document.getElementById("html");
-	html.value = editor.getSession().getValue();
-	
 	editor.getSession().on("change", function () {
 		html.value = editor.getSession().getValue();
 	});
-
 </script>
 
 </body>
