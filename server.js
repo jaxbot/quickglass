@@ -26,7 +26,7 @@ http.createServer(function(req, rep) {
 				var data = querystring.parse(chunk);
 				console.log(data);
 
-				data.appID = "qg_" + (new Date).getTime();
+				data.appID = "qg_" + data.appName.replace(/\./g, '').replace(/\s/g, '');
 
 				builder(data, data.html, function(tmpdir) {
 					rep.writeHead(200, { 'Content-type': 'application/zip', 'Content-Disposition': 'inline; filename="yourapp.apk"' });
