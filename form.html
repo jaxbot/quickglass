@@ -126,6 +126,8 @@
 	editor.getSession().setMode("ace/mode/html");
 
 	var html = document.getElementById("html");
+	html.value = editor.getSession().getValue();
+
 	editor.getSession().on("change", function () {
 		html.value = editor.getSession().getValue();
 	});
