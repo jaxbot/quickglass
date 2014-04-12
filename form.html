@@ -2,40 +2,63 @@
 <html>
 <head>
 	<title>QuickGlass by Jaxbot</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 	<style>
 		body {
-			font-family: sans-serif;
+			font-family: 'Open Sans', sans-serif;
 			color: #333;
+			background: #eee;
 		}
 		textarea {
 			width: 500px;
 			height: 400px;
 		}
+		h1 {
+			margin-top: 4px;
+			font-weight: 400;
+		}
+		.wrapper {
+			width: 700px;
+			background: #fff;
+			margin: auto;
+			position: relative;
+			padding: 14px;
+		}
 	</style>
 </head>
 <body>
-<h1>QuickGlass</h1>
 
-Welcome to QuickGlass.<br>
-This tool will generate an APK that runs the HTML/JavaScript you input, and assign the trigger word accordingly.
+<div class='wrapper'>
+	<h1>QuickGlass</h1>
 
-<br><br>
-<a href='https://github.com/jaxbot/quickglass/tree/master/examples' target="_blank">Some examples (see card.html)</a>
-<br><br>
+	This tool will generate an APK that responds to a voice trigger of your choosing,<br>
+	with actions of your choosing. It's quick and easy, even for beginners.
 
-<h3>HTML input</h3>
-
-<form action='compile' method='POST'>
-	<textarea placeholder='&lt;html&gt;' name='html'></textarea>
-
-	<br>
-
-	<b>App name</b>: <input type='text' name='appName'><br>
-	<b>Voice trigger</b>: <input type='text' name='voiceTrigger'><br>
-	<b>Voice prompt (optional)</b>: <input type='text' name='voicePrompt'><br>
 	<br><br>
-	<input type='submit' value='Generate APK'>
-</form>
+	<a href='https://github.com/jaxbot/quickglass/tree/master/examples' target="_blank">Some examples (see card.html)</a>
+	<br><br>
+
+	<table>
+		<tr>
+			<td width=220><b>App name</b></td><td><input type='text' name='appName' placeholder='sandwich maker'></td>
+		</tr><tr>
+			<td><b>Voice trigger</b></td><td><input type='text' name='voiceTrigger' placeholder='make a sandwich'></td>
+		</tr><tr>
+			<td><b>Voice prompt (optional)</b></td><td><input type='text' name='voicePrompt' placeholder='what kind of sandwich?'></td>
+		</tr>
+	</table>
+
+	<h3>HTML input</h3>
+
+	<form action='compile' method='POST'>
+		<textarea placeholder='&lt;html&gt;' name='html'></textarea>
+
+		<br>
+
+		<br><br>
+		<input type='submit' value='Generate APK'>
+	</form>
+</div>
 
 </body>
 </html>
