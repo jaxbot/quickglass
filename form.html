@@ -12,21 +12,6 @@
 			height: 400px;
 		}
 	</style>
-	<script>
-		function generateAPK() {
-			var html = document.getElementById("html").value;
-			var voiceprompt = document.getElementById("voiceprompt").value;
-			var voicetrigger = document.getElementById("voicetrigger").value;
-			var appname = document.getElementById("appname").value;
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "http://127.0.0.1:8891/compile");
-			xhr.send(JSON.stringify({ html: html,
-				voicePrompt: voiceprompt,
-				voiceTrigger: voicetrigger,
-				appName: appname
-			}));
-		}
-	</script>
 </head>
 <body>
 <h1>QuickGlass</h1>
