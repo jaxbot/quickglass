@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>QuickGlass by Jaxbot</title>
+	<style>
+		textarea {
+			width: 500px;
+			height: 400px;
+		}
+	</style>
+	<script>
+		function generateAPK() {
+			var html = document.getElementById("html").value;
+			var voiceprompt = document.getElementById("voiceprompt").value;
+			var voicetrigger = document.getElementById("voicetrigger").value;
+			var appname = document.getElementById("appname").value;
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "http://127.0.0.1:8891/compile");
+			xhr.send(JSON.stringify({ html: html,
+				voicePrompt: voiceprompt,
+				voiceTrigger: voicetrigger,
+				appName: appname
+			}));
+		}
+	</script>
+</head>
+<body>
+<h1>QuickGlass</h1>
+
+Welcome to QuickGlass. This tool will generate an APK that runs the HTML/JavaScript you input, and assign the trigger word accordingly.
+
+<br><br>
+
+<h3>HTML input</h3>
+
+<form action='compile' method='POST'>
+	<textarea placeholder='&lt;html&gt;' name='html'></textarea>
+
+	<br>
+
+	<b>App name</b>: <input type='text' name='appName'><br>
+	<b>Voice trigger</b>: <input type='text' name='voiceTrigger'><br>
+	<b>Voice prompt (optional)</b>: <input type='text' name='voicePrompt'><br>
+	<br><br>
+	<input type='submit' value='Generate APK'>
+</form>
+
+</body>
+</html>
+

@@ -1,4 +1,4 @@
-module.exports = function(config, htmlData) {
+module.exports = function(config, htmlData, callback) {
 	var spawn = require('child_process').spawn,
 		fs = require('fs'),
 		prepare = spawn('./prepare.sh');
@@ -35,6 +35,9 @@ module.exports = function(config, htmlData) {
 		});
 		build.stderr.on('data', function(data) {
 			console.log(data.toString());
+		});
+		build.on('exit', function() {
+			callback(tmpdir);
 		});
 	});
 }
