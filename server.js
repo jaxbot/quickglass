@@ -24,9 +24,10 @@ http.createServer(function(req, rep) {
 			console.log(chunk);
 			try {
 				var data = querystring.parse(chunk);
+				console.log(data);
 
 				builder(data, data.html, function(tmpdir) {
-					rep.writeHead(200, { 'Content-type': 'application/zip' });
+					rep.writeHead(200, { 'Content-type': 'application/zip', 'Content-Disposition': 'inline; filename="yourapp.apk"' });
 					fs.createReadStream(tmpdir + "/output.apk").pipe(rep);
 				});
 			} catch (e) {
