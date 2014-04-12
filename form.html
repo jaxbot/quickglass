@@ -3,15 +3,13 @@
 <head>
 	<title>QuickGlass by Jaxbot</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+	<script src='//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js'></script>
+
 	<style>
 		body {
 			font-family: 'Open Sans', sans-serif;
 			color: #333;
 			background: #eee;
-		}
-		textarea {
-			width: 500px;
-			height: 400px;
 		}
 		h1 {
 			margin-top: 4px;
@@ -22,7 +20,11 @@
 			background: #fff;
 			margin: auto;
 			position: relative;
-			padding: 14px;
+			padding: 14px; }
+
+		#editor {
+			width: 690px;
+			height: 450px;
 		}
 	</style>
 </head>
@@ -33,32 +35,84 @@
 
 	This tool will generate an APK that responds to a voice trigger of your choosing,<br>
 	with actions of your choosing. It's quick and easy, even for beginners.
+	
+	<br><br>
+
+	This is useful if you need to, say, pull up a quick webpage or make an AJAX call to a remote.<br>
+	It's pure HTML, and redirects, JavaScript, etc., will work.
 
 	<br><br>
 	<a href='https://github.com/jaxbot/quickglass/tree/master/examples' target="_blank">Some examples (see card.html)</a>
 	<br><br>
 
-	<table>
-		<tr>
-			<td width=220><b>App name</b></td><td><input type='text' name='appName' placeholder='sandwich maker'></td>
-		</tr><tr>
-			<td><b>Voice trigger</b></td><td><input type='text' name='voiceTrigger' placeholder='make a sandwich'></td>
-		</tr><tr>
-			<td><b>Voice prompt (optional)</b></td><td><input type='text' name='voicePrompt' placeholder='what kind of sandwich?'></td>
-		</tr>
-	</table>
-
-	<h3>HTML input</h3>
-
 	<form action='compile' method='POST'>
-		<textarea placeholder='&lt;html&gt;' name='html'></textarea>
+
+		<table>
+			<tr>
+				<td width=220><b>App name</b></td>
+				<td><input type='text' name='appName' placeholder='sandwich maker'></td>
+			</tr><tr>
+				<td><b>Voice trigger</b></td>
+				<td><input type='text' name='voiceTrigger' placeholder='make a sandwich'></td>
+			</tr><tr>
+				<td><b>Voice prompt (optional)</b></td>
+				<td><input type='text' name='voicePrompt' placeholder='what kind of sandwich?'></td>
+			</tr>
+		</table>
+
+		<h3>HTML input</h3>
+
+		<div id='editor'>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'&gt;
+	&lt;style&gt;
+		body {
+			background: #000;
+			/* note: by default, the text is black on black,
+			and your application will appear blank! */
+			color: #fff;
+			font-size: 40px;
+			font-weight: 100;
+			font-family: 'Roboto';
+		}
+	&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;p&gt;
+		Hi.
+	&lt;/p&gt;
+
+	&lt;script&gt;
+		Glass.say("Hi.");
+	&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+		</div>
+		<textarea placeholder='&lt;html&gt;' name='html' id='html' style='display:none'></textarea>
 
 		<br>
 
 		<br><br>
 		<input type='submit' value='Generate APK'>
+
 	</form>
 </div>
+
+<script>
+	var editor = ace.edit('editor');
+	editor.setTheme("ace/theme/twilight");
+	editor.getSession().setMode("ace/mode/html");
+
+	var html = document.getElementById("html");
+	html.value = editor.getSession().getValue();
+	
+	editor.getSession().on("change", function () {
+		html.value = editor.getSession().getValue();
+	});
+
+</script>
 
 </body>
 </html>
