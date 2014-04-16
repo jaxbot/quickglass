@@ -1,0 +1,20 @@
+<html>
+<head>
+<style>
+	body {
+		background: #000;
+		color: #fff;
+	}
+</style>
+</head>
+<body>
+My body is ready.
+<script>
+Glass.say("my body");
+function voicePromptCallback(str) {
+	Glass.say(str);
+	document.write(str);
+}
+</script>
+</body>
+</html>
