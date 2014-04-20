@@ -19,15 +19,11 @@
 	</p>
 
 	<script>
-		var xhr = new XMLHttpRequest();
-		xhr.onload = function() {
-			document.write(xhr.responseText);
-		}
-		xhr.open("get", "http://192.168.1.128:5050/api/c0cb3e2e5c284b57bdd3904b09adb74d/media.list", true);
-		xhr.send();
-
 		Glass.say("One moment please.");
 
+		// Note that this is just an example;
+		// you will need to specify your own WOL
+		// endpoint on your server for this to work
 		setTimeout(function() {
 			location.href='http://jaxbot.me/wol.php';
 		},100);
