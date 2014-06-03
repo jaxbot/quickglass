@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Make a temp directory to store our stuff in
-TMPDIR=$(mktemp -d)
+TMPDIR=$(mktemp -d -t quickglass)
 
 mkdir $TMPDIR/input
 mkdir $TMPDIR/input/res
