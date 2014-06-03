@@ -16,8 +16,8 @@ android {
     }
 
     //compileSdkVersion 19
-    compileSdkVersion "Google Inc.:Glass Development Kit Sneak Peek:15"
-    buildToolsVersion "19.0.1"
+    compileSdkVersion "Google Inc.:Glass Development Kit Preview:19"
+    buildToolsVersion "19.0.3"
 
 //http://tools.android.com/tech-docs/new-build-system/user-guide
 
@@ -31,13 +31,6 @@ android {
         targetSdkVersion 19
         versionName "${versionMajor}-b-${buildTime()}"
         versionCode 1
-    }
-
-    buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
     }
 }
 
