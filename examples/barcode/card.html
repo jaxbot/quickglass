@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+	<style>
+		body {
+			background: #000;
+			color: #fff;
+			font-size: 30px;
+			font-weight: 100;
+			font-family: 'Roboto';
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="results"></div>
+	<script>
+		Glass.say("Scan a barcode!");
+		function scanBarcodeCallback(str) {
+			document.getElementById("results").innerHTML = str;
+			Glass.say(str);
+		}
+	</script>
+</body>
+</html>
+
