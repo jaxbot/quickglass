@@ -18,10 +18,17 @@ import java.util.ArrayList;
 import android.graphics.Color;
 
 import android.webkit.WebView;
+import android.net.Uri;
 
 import com.google.android.glass.app.Card;
+import com.jaxbot.glass.barcode.scan.CaptureActivity;
+import android.speech.tts.TextToSpeech;
+
+import android.webkit.JavascriptInterface;
 
 public class MainActivity extends Activity {
+	final int SCAN_QR = 4;
+
 	WebView webview;
 
 	@Override
@@ -49,6 +56,17 @@ public class MainActivity extends Activity {
 		super.onStart();
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == SCAN_QR) {
+			if (resultCode == RESULT_OK) {
+				Bundle res = data.getExtras();
+				String qrdata = res.getString("qr_data").toString();
+				Log.d("Q", qrdata);
+				webview.loadUrl("javascript:scanBarcodeCallback(\"" + qrdata + "\");");
+			}
+		}
+	}
 
 	void showPage() {
 		try {
@@ -88,6 +106,38 @@ public class MainActivity extends Activity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+	}
+
+	public class Javascript {
+		private TextToSpeech tts;
+		private Context context;
+
+		public Javascript(Context context) {
+			tts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+				@Override
+				public void onInit(int status) {
+					// Do nothing.
+				}
+			});
+
+			this.context = context;
+		}
+
+		@JavascriptInterface
+		public void say(String str) {
+			tts.speak(str, TextToSpeech.QUEUE_FLUSH, null);
+		}
+
+		@JavascriptInterface
+		public int echo(int s) {
+			return s;
+		}
+
+		@JavascriptInterface
+		public void scanBarcode() {
+			Intent intent = new Intent(context, CaptureActivity.class);
+			startActivityForResult(intent, SCAN_QR);
+		}
 	}
 }
 

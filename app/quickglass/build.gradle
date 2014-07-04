@@ -35,5 +35,6 @@ android {
 }
 
 dependencies {
+	compile project(":glass-barcode")
     compile 'com.android.support:support-v4:19.0.0'
 }
