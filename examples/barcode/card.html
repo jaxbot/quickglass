@@ -17,6 +17,8 @@
 	<div id="results"></div>
 	<script>
 		Glass.say("Scan a barcode!");
+		Glass.scanBarcode();
+
 		function scanBarcodeCallback(str) {
 			document.getElementById("results").innerHTML = str;
 			Glass.say(str);
